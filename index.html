@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready To Party - Experiencia de Belleza Móvil</title>
+    <meta name="description" content="La primera experiencia de belleza móvil diseñada especialmente para adolescentes. Maquillaje, peinado y diversión en un solo lugar.">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <style>
+/* ========================
+   VARIABLES & DESIGN TOKENS
+   ======================== */
+:root {
+    /* Main Colors from Client */
+    --pink-main: #FF4FA3;
+    --pink-light: #FFC1DA;
+    --beige-soft: #F5E6E0;
+    --white: #FFFFFF;
+    --red-accent: #FF2E63;
+    --text-dark: #2B2B2B;
+    
+    /* Utility Colors */
+    --text-muted: #555555;
+    --whatsapp: #25D366;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, var(--pink-main), var(--pink-light));
+    --gradient-cta: linear-gradient(135deg, var(--pink-main), var(--red-accent));
+    
+    /* Typography */
+    --font-primary: 'Poppins', sans-serif;
+    
+    /* UI Toolkit */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-pill: 50px;
+    
+    /* Shadows */
+    --shadow-soft: 0 10px 30px rgba(255, 79, 163, 0.15);
+    --shadow-hover: 0 15px 35px rgba(255, 46, 99, 0.25);
+    --shadow-card: 0 8px 30px rgba(43, 43, 43, 0.08);
+    
+    /* Animations */
+    --transition: all 0.3s ease;
+}
+
+/* ========================
+   RESET & BASE
+   ======================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+    font-family: var(--font-primary);
+    color: var(--text-dark);
+    background-color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ========================
+   LAYOUT & TYPOGRAPHY
+   ======================== */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-header h2 { font-size: 2.5rem; color: var(--text-dark); margin-bottom: 1rem; }
+.section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+.highlight { color: var(--pink-main); }
+
+/* ========================
+   BUTTONS
+   ======================== */
+.btn {
+    display: inline-block; padding: 12px 32px; border-radius: var(--radius-pill);
+    font-weight: 600; text-align: center; cursor: pointer; transition: var(--transition); border: none;
+}
+.btn-primary { background-color: var(--pink-main); color: var(--white); box-shadow: var(--shadow-soft); }
+.btn-primary:hover { background-color: var(--red-accent); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.btn-secondary { background-color: var(--white); color: var(--pink-main); box-shadow: var(--shadow-soft); }
+.btn-secondary:hover { color: var(--red-accent); box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+.btn-large { padding: 16px 40px; font-size: 1.1rem; }
+
+/* ========================
+   HEADER / NAVBAR
+   ======================== */
+.header {
+    position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; transition: var(--transition); box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--pink-main); }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-weight: 500; color: var(--text-dark); transition: var(--transition); }
+.nav-links a:hover { color: var(--pink-main); }
+.btn-nav { background-color: var(--pink-light); color: var(--text-dark); padding: 10px 24px; }
+.btn-nav:hover { background-color: var(--pink-main); color: var(--white); }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-dark); cursor: pointer; }
+
+/* ========================
+   1. HERO SECTION
+   ======================== */
+.hero {
+    min-height: 100vh; background: var(--gradient-hero); display: flex; align-items: center;
+    padding-top: 80px; overflow: hidden;
+}
+.hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.hero-content { color: var(--text-dark); }
+.hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; color: var(--white); text-shadow: 0 4px 20px rgba(255, 79, 163, 0.3); }
+.hero .subtitle { font-size: 1.25rem; font-weight: 600; margin-bottom: 15px; color: var(--text-dark); }
+.hero .description { font-size: 1.1rem; margin-bottom: 35px; color: var(--text-dark); opacity: 0.9; }
+.hero-image-wrapper { position: relative; padding: 20px; }
+.hero-image-container {
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-hover);
+    border: 8px solid rgba(255, 255, 255, 0.4); transform: rotate(2deg); transition: var(--transition);
+}
+.hero-image-container:hover { transform: rotate(0deg) scale(1.02); }
+.hero-image { width: 100%; object-fit: cover; }
+.floating-badge {
+    position: absolute; background-color: var(--white); padding: 12px 24px; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card); font-weight: 600; font-size: 0.9rem; z-index: 2; color: var(--pink-main);
+    animation: float 4s ease-in-out infinite;
+}
+.top-right { top: -5px; right: 0px; animation-delay: 0s; }
+.bottom-left { bottom: 40px; left: -10px; animation-delay: 2s; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
+
+/* ========================
+   2. ABOUT SECTION
+   ======================== */
+.about { padding: 100px 0; background-color: var(--white); }
+.about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-image-container { position: relative; }
+.about-img { border-radius: var(--radius-lg); box-shadow: var(--shadow-card); position: relative; z-index: 2; }
+.image-accent {
+    position: absolute; top: -20px; left: -20px; width: 100%; height: 100%;
+    border-radius: var(--radius-lg); background-color: var(--pink-light); z-index: 1;
+}
+.about-content h2 { font-size: 2.5rem; margin-bottom: 24px; }
+.about-content p { margin-bottom: 20px; font-size: 1.05rem; color: var(--text-muted); }
+
+/* ========================
+   3. SERVICES SECTION
+   ======================== */
+.services { padding: 100px 0; background-color: var(--pink-light); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
+.service-card {
+    background-color: var(--white); padding: 40px 30px; border-radius: var(--radius-lg);
+    text-align: center; box-shadow: var(--shadow-card); transition: var(--transition);
+}
+.service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+.icon-circle {
+    width: 70px; height: 70px; background-color: var(--beige-soft); border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--pink-main);
+    font-size: 1.8rem; transition: var(--transition);
+}
+.service-card:hover .icon-circle { background-color: var(--pink-main); color: var(--white); }
+.service-card h3 { margin-bottom: 15px; font-size: 1.3rem; color: var(--text-dark); }
+.service-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+/* ========================
+   4. BENEFITS SECTION
+   ======================== */
+.benefits { padding: 100px 0; background-color: var(--white); }
+.benefits-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.benefits-content h2 { font-size: 2.5rem; margin-bottom: 15px; }
+.benefits-content > p { margin-bottom: 40px; font-size: 1.1rem; color: var(--text-muted); }
+.benefits-list { display: flex; flex-direction: column; gap: 25px; }
+.benefit-item { display: flex; gap: 20px; align-items: flex-start; }
+.benefit-icon {
+    width: 50px; height: 50px; background-color: var(--pink-light); border-radius: var(--radius-sm); display: flex;
+    align-items: center; justify-content: center; color: var(--pink-main); font-size: 1.5rem; flex-shrink: 0;
+}
+.benefit-item h4 { font-size: 1.2rem; margin-bottom: 5px; }
+.benefit-item p { color: var(--text-muted); font-size: 0.95rem; }
+.benefits-img { border-radius: var(--radius-lg); box-shadow: var(--shadow-hover); height: 100%; object-fit: cover; max-height: 550px; }
+
+/* ========================
+   5. GALLERY SECTION
+   ======================== */
+.gallery { padding: 100px 0; background-color: var(--beige-soft); }
+.pinterest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; grid-auto-rows: 250px; }
+.grid-item.tall { grid-row: span 2; }
+.grid-item { position: relative; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); cursor: pointer; }
+.grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.grid-item:hover img { transform: scale(1.1); }
+.overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 79, 163, 0.4);
+    display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition);
+}
+.grid-item:hover .overlay { opacity: 1; }
+.overlay span {
+    color: var(--white); font-weight: 600; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;
+    transform: translateY(20px); transition: var(--transition); text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.grid-item:hover .overlay span { transform: translateY(0); }
+
+/* ========================
+   6. HOW IT WORKS
+   ======================== */
+.how-it-works { padding: 100px 0; background-color: var(--white); }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; position: relative; }
+.steps-grid::before {
+    content: ''; position: absolute; top: 40px; left: 15%; right: 15%; height: 2px; background-color: var(--pink-light); z-index: 1;
+}
+.step-card { text-align: center; position: relative; z-index: 2; }
+.step-number {
+    width: 60px; height: 60px; background-color: var(--pink-main); color: var(--white); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 20px; box-shadow: 0 0 0 10px var(--white);
+}
+.step-icon { font-size: 2.5rem; color: var(--pink-light); margin-bottom: 20px; }
+.step-card h3 { margin-bottom: 12px; font-size: 1.3rem; }
+.step-card p { color: var(--text-muted); }
+
+/* ========================
+   7. TESTIMONIALS
+   ======================== */
+.testimonials { padding: 100px 0; background-color: var(--pink-light); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.testimonial-card {
+    background-color: var(--white); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-card); transition: var(--transition);
+}
+.testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.stars { color: #FFD700; margin-bottom: 20px; }
+.testimonial-card p { font-style: italic; margin-bottom: 25px; color: var(--text-muted); }
+.author { display: flex; flex-direction: column; }
+.author strong { color: var(--text-dark); font-size: 1.1rem; }
+.author span { color: var(--pink-main); font-size: 0.9rem; font-weight: 500; }
+
+/* ========================
+   8. CTA FINAL
+   ======================== */
+.cta-final { padding: 100px 0; background: var(--gradient-cta); text-align: center; }
+.cta-content { max-width: 700px; margin: 0 auto; }
+.cta-content h2 { font-size: 2.8rem; color: var(--white); margin-bottom: 20px; }
+.cta-content p { font-size: 1.2rem; color: var(--white); margin-bottom: 40px; opacity: 0.95; }
+
+/* ========================
+   9. CONTACT & FOOTER
+   ======================== */
+.contact { padding: 80px 0 30px; background-color: var(--white); }
+.contact-container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; margin-bottom: 60px; }
+.contact-info { flex: 1 1 400px; }
+.contact-info h2 { font-size: 2rem; color: var(--text-dark); margin-bottom: 10px; }
+.contact-info p { color: var(--text-muted); margin-bottom: 30px; }
+.contact-buttons { display: flex; flex-direction: column; gap: 15px; max-width: 320px; }
+.btn-contact {
+    display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 24px; border-radius: var(--radius-pill);
+    font-weight: 600; transition: var(--transition); color: var(--white); font-size: 1.1rem;
+}
+.btn-whatsapp { background-color: var(--whatsapp); }
+.btn-whatsapp:hover { background-color: #20BA56; transform: translateY(-3px); box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
+.btn-instagram { background-color: var(--pink-main); }
+.btn-instagram:hover { background-color: var(--red-accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+.footer-links { flex: 1 1 200px; }
+.footer-links p { font-size: 1.1rem; margin-bottom: 20px; color: var(--text-dark); }
+.footer-links ul li { margin-bottom: 12px; }
+.footer-links ul li a { color: var(--text-muted); transition: var(--transition); }
+.footer-links ul li a:hover { color: var(--pink-main); }
+.copyright { text-align: center; padding-top: 30px; border-top: 1px solid var(--beige-soft); color: var(--text-muted); font-size: 0.9rem; }
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+@media (max-width: 992px) {
+    .hero-container, .about-container, .benefits-container { grid-template-columns: 1fr; }
+    .hero-content { text-align: center; order: 1; }
+    .hero-image-wrapper { order: -1; }
+    .hero h1 { font-size: 3rem; }
+    .hero-buttons { text-align: center; }
+    .about-image-container { order: -1; }
+    .benefits-image-container { display: none; }
+}
+@media (max-width: 768px) {
+    .nav-links, .btn-nav { display: none; }
+    .mobile-menu-btn { display: block; }
+    .steps-grid { grid-template-columns: 1fr; gap: 50px; }
+    .steps-grid::before { display: none; }
+    .cta-content h2 { font-size: 2.2rem; }
+    .gallery .pinterest-grid { grid-auto-rows: 200px; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container nav-content">
+            <div class="logo">
+                ✨ Ready To Party
+            </div>
+            <nav class="nav-links">
+                <a href="#about">Experiencia</a>
+                <a href="#services">Servicios</a>
+                <a href="#benefits">Beneficios</a>
+                <a href="#gallery">Galería</a>
+                <a href="#testimonials">Testimonios</a>
+            </nav>
+            <a href="#contact" class="btn btn-nav">Reservar hoy</a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- 1. Hero Principal -->
+    <section class="hero" id="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Get Ready Like Never Before ✨</h1>
+                <p class="subtitle">La primera experiencia de belleza móvil diseñada especialmente para adolescentes</p>
+                <p class="description">Maquillaje, peinado y diversión en un solo lugar. Llevamos el beauty truck hasta tu evento para que vivas un momento único con tus amigas 💖</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary btn-large">Reservar ahora</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="hero-image-container">
+                    <img src="./assets/beauty_truck.png" alt="Beauty Truck de Ready to Party" class="hero-image">
+                </div>
+                <div class="floating-badge top-right">💄 Profesional</div>
+                <div class="floating-badge bottom-left">💖 Glamour</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Sobre la Experiencia -->
+    <section class="about" id="about">
+        <div class="container about-container">
+            <div class="about-image-container">
+                <img src="./assets/friends_party.png" alt="Chicas en el evento" class="about-img">
+                <div class="image-accent"></div>
+            </div>
+            <div class="about-content">
+                <h2>Más que maquillaje, es una <span class="highlight">experiencia</span></h2>
+                <p><strong>Ready To Party</strong> transforma la forma en la que las adolescentes se preparan para sus eventos. Nuestro beauty truck llega directamente a tu casa o lugar del evento para ofrecer maquillaje y peinado profesional en un espacio moderno, seguro y totalmente diseñado para ti.</p>
+                <p>Creamos un ambiente donde puedes compartir con tus amigas, disfrutar el momento y sentirte increíble, mientras tus padres tienen la tranquilidad de un servicio confiable y especializado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Servicios -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Todo lo que necesitas para brillar ✨</h2>
+                <p>Nuestros servicios completos en un solo lugar</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-magic"></i></div>
+                    <h3>Maquillaje profesional</h3>
+                    <p>Looks naturales y vibrantes, adaptados a ti para que seas el centro de atención.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-cut"></i></div>
+                    <h3>Peinado personalizado</h3>
+                    <p>Las últimas tendencias en recogidos, trenzas o pelo suelto para completar tu estilo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-user-friends"></i></div>
+                    <h3>Experiencia con amigas</h3>
+                    <p>Música de fondo, diversión y momentos de relajación con las personas que quieres.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-camera-retro"></i></div>
+                    <h3>Espacio instagrameable</h3>
+                    <p>Diseño interior estético con luces neón y rincones ideales para TikToks o fotos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Beneficios -->
+    <section class="benefits" id="benefits">
+        <div class="container benefits-container">
+            <div class="benefits-content">
+                <h2>Diseñado para <span class="highlight">ellas</span>, pensado para <span class="highlight">ti</span></h2>
+                <p>Un servicio que brinda estilo para las adolescentes y tranquilidad para los padres</p>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <h4><span class="highlight">Seguridad</span> y confianza</h4>
+                            <p>Entorno controlado y servicio a domicilio totalmente confiable.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fas fa-star"></i></div>
+                        <div>
+                            <h4>Equipo <span class="highlight">profesional</span></h4>
+                            <p>Maquilladores y estilistas expertos en eventos de adolescentes.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fas fa-gem"></i></div>
+                        <div>
+                            <h4><span class="highlight">Tendencias</span> actuales</h4>
+                            <p>Trabajamos con lo más in y la moda actual, desde looks clean girl hasta festival.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fas fa-couch"></i></div>
+                        <div>
+                            <h4><span class="highlight">Comodidad</span> total</h4>
+                            <p>Eliminamos el estrés de las citas previas. Nosotros vamos adonde tú nos necesites.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="benefits-image-container">
+                <img src="./assets/makeup_details.png" alt="Detalles de maquillaje premium" class="benefits-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Galería -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Así se vive la experiencia</h2>
+                <p>Un vistazo a nuestro increíble servicio</p>
+            </div>
+            <div class="pinterest-grid">
+                <div class="grid-item tall">
+                    <img src="./assets/makeup_station.png" alt="Makeup Station">
+                    <div class="overlay"><span><i class="fas fa-heart"></i> Glam Room</span></div>
+                </div>
+                <div class="grid-item">
+                    <img src="./assets/friends_party.png" alt="Party Time">
+                    <div class="overlay"><span><i class="fas fa-heart"></i> Amigas</span></div>
+                </div>
+                <div class="grid-item">
+                    <img src="./assets/beauty_truck.png" alt="Beauty Truck">
+                    <div class="overlay"><span><i class="fas fa-heart"></i> Exterior</span></div>
+                </div>
+                <div class="grid-item tall">
+                    <img src="./assets/makeup_details.png" alt="Details">
+                    <div class="overlay"><span><i class="fas fa-heart"></i> Detalles</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Cómo Funciona -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tan fácil como 1, 2, 3</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="far fa-calendar-check"></i></div>
+                    <h3>Reserva online</h3>
+                    <p>Contáctanos, elige tu paquete y asegura la fecha para tu evento.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-truck-moving"></i></div>
+                    <h3>Vamos a tu ubicación</h3>
+                    <p>El Beauty Truck llega preparado con todo lo necesario hasta tu puerta.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-glass-cheers"></i></div>
+                    <h3>Disfruta la experiencia</h3>
+                    <p>Déjate consentir, tómate fotos y vive el momento junto a tus amigas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Testimonios -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lo que dicen nuestras clientas 💕</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Fue la mejor experiencia para mis 15 años. El camión es divino y nos dejaron hermosas a todas mis amigas y a mí. ¡Totalmente recomendado!"</p>
+                    <div class="author">
+                        <strong>Sofía T.</strong>
+                        <span>15 años</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Como mamá lo que más me importaba era la seguridad y el trato. El equipo fue super profesional y muy amables, nos dieron muchísima confianza."</p>
+                    <div class="author">
+                        <strong>Mariana V.</strong>
+                        <span>Mamá</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Me sentí como una superestrella de Hollywood mientras me maquillaban en mi propia casa. Las luces y todo es perfecto para fotos previas a la fiesta."</p>
+                    <div class="author">
+                        <strong>Camila R.</strong>
+                        <span>16 años</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. CTA Final -->
+    <section class="cta-final" id="cta-final">
+        <div class="container cta-container">
+            <div class="cta-content">
+                <h2>Tu próxima experiencia empieza aquí</h2>
+                <p>No te quedes sin tu fecha. Reserva el Beauty Truck y vive un evento inolvidable.</p>
+                <a href="#contact" class="btn btn-secondary btn-large">Reserva tu experiencia 💖</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Contacto -->
+    <footer class="contact" id="contact">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h2>Ready To Party</h2>
+                <p>El Beauty Truck definitivo para llevar el mejor estilo a tu evento o fiesta.</p>
+                <div class="contact-buttons">
+                    <a href="https://wa.me/5491100000000" class="btn-contact btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://instagram.com/" class="btn-contact btn-instagram" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <p><strong>Navegación</strong></p>
+                <ul>
+                    <li><a href="#about">Experiencia</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#benefits">Beneficios</a></li>
+                    <li><a href="#gallery">Galería</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Ready To Party. Todos los derechos reservados. Diseñado con 💖</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.header');
+            
+            // Add scroll listener for header effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+                    header.style.padding = '10px 0';
+                } else {
+                    header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+                    header.style.padding = '15px 0';
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    alert("Menú móvil (Mockup de la versión web).");
+                });
+            }
+
+            // Smooth scroll para todos los enlaces ancla
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
